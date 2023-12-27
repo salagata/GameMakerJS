@@ -78,19 +78,17 @@ class Text {
     updateFormat(formatText = this.#formatText) {
         let span = this.#spantext
         function convertGlobal(element) {
-            let ft;
             if (typeof element == "string") { // formatText is an string
-                ft = [{text:element}]; // "element" -> [{text:"element"}]
+                return [{text:element}];
             } else if (typeof element == "object") {
                 if(Array instanceof element) { // formatText is an Array with object or string
-                    ft = element.map((text) => typeof text == "string" ? {text : text} : text); // ["Game",{text:"Maker"}] -> [{text:"Game"},{text:"Maker"}]
+                    return element.map((text) => typeof text == "string" ? {text} : text); // ["Game",{text:"Maker"}] -> [{text:"Game"},{text:"Maker"}]
                 } else { // format text is an Object
-                    ft = [element]; // {text:"Game"} -> [{text:"Game"}]
+                    return [element];
                 }
             } else {
                 throw new SyntaxError(formatText + " is not a valid format text");
             }
-            return ft;
         }
         
         let translatorProperties = {
@@ -129,21 +127,35 @@ class Text {
                 for (const property in elements) {
                     if (Object.hasOwnProperty.call(elements, property)) {
                         const element = elements[property];
-                        style += "font-" + property + ":" + element + ";";
+                        style += `font-${property}:${element};`;
                     }
                 }
                 return style;
             }
             function setOptions(data) {
+                let dict = {
+                    italic:"i>",
+                    bold:"strong>",
+                    deleted:"del>",
+                    underlined:"ins>",
+                    strikethrough:"small>",
+                    subscripted:"sub>",
+                    supscripted:"sup>"
+                }
                 function defineParams(dictionary,elements) {
-                    let element = 
+                    const dictArray = Object.keys(dictionary); // [italic,bold,deleted,underlined,strikethrough,subscripted,supscriped]
+                    let element = "";
+                    for (const format of dictArray) {
+                        element += elements?.[format] ?? "" // strong>
+                    }
+                    return element;
                 }
             }
             let element = "";
             for (let i = 0; i < format.length; i++) {
                 const base = format[i];
                 element += 
-                `<span title="${this?.hover ?? "" }" style="color:${base?.color ?? "black"};${setFont(base?.font ?? {})}">${base?.text ?? ""}</span>`
+                `<span title="${base?.hover ?? "" }" style="color:${base?.color ?? "black"};${setFont(base?.font ?? {})}">${base?.text ?? ""}</span>`
             }
             span.html(element)
         }
@@ -307,16 +319,13 @@ class Text {
     addTexture(name,type){
         if (typeof name != "object") {
             this.textures.addTexture(name,type)
+        } else if (name instanceof Array || type instanceof Array) {
+            for(let i = 0; i < name.length;i++ ) {
+                this.textures.addTexture(name[i],type[i])
+            }
         } else {
-            if (name instanceof Array || type instanceof Array) {
-                console.log(name,type)
-                for(let i = 0; i < name.length;i++ ) {
-                    this.textures.addTexture(name[i],type[i])
-                }
-            } else {
-                for(let [n,v] of Object.entries(name)) {
-                    this.textures.addTexture(n,v)
-                }
+            for(let [n,v] of Object.entries(name)) {
+                this.textures.addTexture(n,v)
             }
         }
         
