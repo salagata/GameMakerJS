@@ -146,7 +146,7 @@ class Text {
                     const dictArray = Object.keys(dictionary); // [italic,bold,deleted,underlined,strikethrough,subscripted,supscriped]
                     let element = "";
                     for (const format of dictArray) {
-                        element += elements?.[format] ?? "" // strong>
+                        element += elements?.[format] ?? "" // strong>del>
                     }
                     return element;
                 }
@@ -155,7 +155,7 @@ class Text {
             for (let i = 0; i < format.length; i++) {
                 const base = format[i];
                 element += 
-                `<span title="${base?.hover ?? "" }" style="color:${base?.color ?? "black"};${setFont(base?.font ?? {})}">${base?.text ?? ""}</span>`
+                `<span title="${base?.hover ?? "" }" style="color:${base?.color ?? "black"};${setFont(base?.font ?? {})}">${setOptions(base?.text ?? "")}</span>`
             }
             span.html(element)
         }
