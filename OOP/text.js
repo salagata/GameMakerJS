@@ -1,4 +1,5 @@
 import { TextureList } from "./misc.js";
+import { d3 } from "./d3.js";
 /*
 [
     {
@@ -145,8 +146,8 @@ class Text {
                 function defineParams(dictionary,elements) {
                     const dictArray = Object.keys(dictionary); // [italic,bold,deleted,underlined,strikethrough,subscripted,supscriped]
                     let element = "";
-                    for (const format of dictArray) {
-                        element += elements?.[format] ?? "" // strong>del>
+                    for (const format of elements) {
+                        element += dict?.[format] ?? "" // strong>del>
                     }
                     return element;
                 }
