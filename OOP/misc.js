@@ -1,3 +1,4 @@
+// Texture 
 class TextureList {
     constructor() {
         this.usedTexture = undefined
@@ -51,7 +52,7 @@ class TextureList {
         return Object.entries(this);
     }
 }
-
+// Table
 class TableData {
     constructor(...array) {
 		this.tableArray = [];
@@ -106,41 +107,11 @@ class TableData {
 		this.tableArray.map((x,i) => x == i ? x[col] : x[i])
 	}
 }
-
+// Formateable text
 class FormatText {
     constructor(element) {
         
     }
 }
-const CONVERTS_TO_PIXEL = {
-    /**
-     * Converts pixel to centimeter
-     * @param {number} x The number
-     * @returns The number in centimeters
-     */
-    cm:(x) => x * 3.846153,
-    in:(x) => this.cm(x) * 2.54,
-    mm:(x) => this.cm(x) / 10,
-    mt:(x) => this.cm(x) * 100,
-    q:(x) => x * 0.248,
-    pt:(x) => this.in(x) / 72,
-    pc:(x) => this.pt(x) * 12,
-    px:(x) => x,
-    at:(x) => this.mt(x) * (10**(-10))
-}
-var quantitySystem = {
-    quantities:[]
-};
 
-class Quantity {
-    constructor(quantityName,scaleToReference,reference) {
-        this.quantityName = quantityName;
-        this.scaleToReference = scaleToReference;
-        this.reference = reference;
-        quantitySystem.quantities.push(this)
-        return this
-    }
-}
-
-new Quantity()
-export {TextureList,TableData,Quantity,quantitySystem,CONVERTS_TO_PIXEL}
+export {TextureList,TableData}

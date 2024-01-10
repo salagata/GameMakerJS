@@ -6,7 +6,6 @@ let degs = rad => rad * (180/Math.PI);
 
 let roundDec = (num,q) => Math.round(num*(10**q))/(10**q)
 
-
 class Sprite {
     #xSVG;
     #ySVG;
@@ -24,8 +23,10 @@ class Sprite {
     #w;
     #h;
     #rotate;
-    constructor(type,SVG,sizeX,sizeY,classs = "",isEllipse = false,data = {}) {
+    constructor(type,SVG,sizeX,sizeY,classs = "",transformRotableType = "simple",isEllipse = false,data = {}) {
         this.#SVGcanvas = SVG;
+        this.transformRotableType = transformRotableType
+        this.#layer = 
         this.#SVGvector = d3.select("#"+this.#SVGcanvas.id).append("div")
             .attr("id",type)
             .attr("class",classs)
@@ -37,7 +38,8 @@ class Sprite {
             .style("background","#96f")
             .style("display","block")
             .style("position","absolute")
-            .style("border-radius",isEllipse?"50%":"0");
+            .style("border-radius",isEllipse?"50%":"0")
+            .style("z-index",layer);
         this.type = type;
         this.textures = new TextureList();
         //this.classes = new DOMTokenList();

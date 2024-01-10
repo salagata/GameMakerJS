@@ -13,6 +13,7 @@ class SVGcanvas {
         this.height = h;
         this.maxLayer = 0;
         this.minLayer = 0;
+        this.nowLayer = 0;
         this.nowTexture = undefined;
         this.#svg = d3.select("#"+id).style("position","relative");
         this.cursor = this.newSprite("cursor",1,1,"default",false,{}).hide()
@@ -35,8 +36,8 @@ class SVGcanvas {
         return sprite;
     };
 
-    addText(id,textFormat,width,height,classs= "",data = "") {
-        let text = new Text(id,this,textFormat,width,height,classs,data)
+    addText(id,textFormat,width,height,classs= "",transformRotableType = "simple",data = "") {
+        let text = new Text(id,this,textFormat,width,height,classs,transformRotableType,data)
     
         return text
     }
