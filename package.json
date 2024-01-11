@@ -4,7 +4,7 @@
   "description": "\"Programming is a good game!\", A framework that allows you to create all kinds of games",
   "main": "gm.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo Hola"
   },
   "repository": {
     "type": "git",

@@ -17,10 +17,16 @@ Quantities: meters per second, kilometers per hour
 */
 var measureSystem = {
     measures : [], // speed, distance, time
-    newMeasure(...name) { // "Speed","Distance","Time"
-        name.flat().forEach((n) => {
-            this.measures.push(setNoEditable(new Measure(n)))
-        })
+    newMeasure(name,formula) { // "Speed","Distance","Time"
+        this.measures.push(setNoEditable(new Measure(name,formula)))
+    }
+}
+/*
+speed
+*/
+class Formula {
+    constructor(primitive) {
+        
     }
 }
 // new Measure("speed")
