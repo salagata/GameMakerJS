@@ -28,25 +28,21 @@ class Measure {
     constructor(name,formula) {
         this.name = name;
         this.formula = (formula); 
-        this.quantities = [];
+        this.units= [];
     }
-    addUnity(quantity) {
-        if (typeof quantity == "string") { // meters per second
-            this.quantities.push(quantity)
-        } else {
-            for (const q of quantity) {
-                this.quantities.push(quantity) // [meters per second, kilometers per hour]
-            }
-        }
+    addUnity(unit) {
+        if (unit instanceof Unit) { // meters per second
+            this.units.push(unit)
+        } 
     }
 
 }
-// new Unity("Meters per second")
-class Unity {
+// new Unit("Meters per second")
+class Unit {
     constructor(quantityName,scaleToReference,reference) {
         this.quantityName = quantityName;
         this.scaleToReference = scaleToReference;
         this.reference = reference;
     }
 }
-export {Unity,measureSystem,CONVERTIBLES_TO_PIXEL}
+export {Unit,measureSystem,CONVERTIBLES_TO_PIXEL}

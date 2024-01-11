@@ -6,5 +6,4 @@ import * as loop from "./Extra-module/loop.js";
 import * as money from "./Extra-module/money.js";
 import * as encryptor from "./Extra-module/encryptor.js";
 import * as misc from "./Extra-module/miscellaneous.js";
-var ids = {createSVG,Range,dataDriven,random,loop,money,encryptor,misc};
-export default ids;
+export {createSVG,Range,dataDriven,random,loop,money,encryptor,misc};
