@@ -19,6 +19,10 @@ var measureSystem = {
     measures : [], // speed, distance, time
     newMeasure(name,formula) { // "Speed","Distance","Time"
         this.measures.push(setNoEditable(new Measure(name,formula)))
+        return this.findMeasure(name)
+    },
+    findMeasure(name) {
+        return this.measures.find(n => n.name == name);
     }
 }
 // new Measure("speed")
@@ -42,7 +46,7 @@ class Measure {
         }
     }
     findUnit(unit) {
-        return this.units.find(u => u == unit);
+        return this.units.find(u => u.unitName == unit);
     }
     setMainUnit(unit) { // Main unit is used in formulas in Measures, distance (meters) , time (seconds) , 
         this.units.forEach(u => u.#removeMainUnit());
