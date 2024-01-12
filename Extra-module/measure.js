@@ -21,19 +21,11 @@ var measureSystem = {
         this.measures.push(setNoEditable(new Measure(name,formula)))
     }
 }
-/*
-speed
-*/
-class Formula {
-    constructor(primitive) {
-        
-    }
-}
 // new Measure("speed")
 class Measure {
-    constructor(name,formula) {
+    constructor(name,formula) { // (speed,distance)
         this.name = name;
-        this.formula = (formula); 
+        this.formula = formula; 
         this.units= [];
     }
     addUnity(unit) {
