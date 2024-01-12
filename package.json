@@ -1,0 +1,22 @@
+{
+  "name": "gamemaker-js",
+  "version": "1.0.0",
+  "description": "A framework used to make all kind of games in Js",
+  "main": "gm.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "(https://github.com/salagata/GameMakerJS/blob/main/gm.js)"
+  },
+  "keywords": [
+    "gamemaker-advanced",
+    "gamemaker",
+    "gamecreator",
+    "gamemaker-js",
+    "gamecreator-js"
+  ],
+  "author": "@salagata and @nobody",
+  "license": "MIT"
+}
