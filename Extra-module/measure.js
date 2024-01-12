@@ -23,24 +23,47 @@ var measureSystem = {
 }
 // new Measure("speed")
 class Measure {
-    constructor(name,formula) { // (speed,distance)
+    #setMainUnit;
+    #removeMainUnit;
+    constructor(name,formula) { // (distance,time) => distance/time 
         this.name = name;
         this.formula = formula; 
-        this.units= [];
+        this.units = [];
+        this.mainUnit;
     }
-    addUnity(unit) {
-        if (unit instanceof Unit) { // meters per second
-            this.units.push(unit)
-        } 
+    addUnit(unit,scale = 1,reference = undefined,mainUnit = false) {// "Meters per second", 1 , undefined , true
+        this.units.push(setNoEditable(new Unit(unit,scale,reference)));
+        return this.findUnit(unit);
     }
-
+    spreadUnit(start = 1,main,step = 10,...units) { // 1 , "meters per seconds", 10, "decameters per seconds", "hectameters per second", "kilometers per second"
+        for (let i = 0; i < units.length; i++) {
+            const unit = units[i];
+            this.addUnit(unit,start * (step ** i),main)
+        }
+    }
+    findUnit(unit) {
+        return this.units.find(u => u == unit);
+    }
+    setMainUnit(unit) { // Main unit is used in formulas in Measures, distance (meters) , time (seconds) , 
+        this.units.forEach(u => u.#removeMainUnit());
+        this.findUnit(unit).#setMainUnit();
+    }
 }
 // new Unit("Meters per second")
 class Unit {
-    constructor(quantityName,scaleToReference,reference) {
-        this.quantityName = quantityName;
+    #setMainUnit;
+    #removeMainUnit;
+    constructor(unitName,scaleToReference,reference,mainUnit) {
+        this.unitName = unitName;
         this.scaleToReference = scaleToReference;
-        this.reference = reference;
+        this.reference = reference ?? unitName;
+        this.mainUnit = mainUnit;
+        this.#setMainUnit = () => {
+            this.mainUnit = true;
+        }
+        this.#removeMainUnit = () => {
+            this.mainUnit = false
+        }
     }
 }
-export {Unit,measureSystem,CONVERTIBLES_TO_PIXEL}
+export {measureSystem,CONVERTIBLES_TO_PIXEL}
