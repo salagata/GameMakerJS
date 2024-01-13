@@ -32,4 +32,5 @@ function twoArraysToObject(arr1, arr2) {
       return Math.abs(n) / n;
   }
   
+
 export {setNoEditable,twoArraysToObject,floorDec,toDegs,toRad,roundDec}
