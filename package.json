@@ -18,5 +18,8 @@
     "gamecreator-js"
   ],
   "author": "@salagata and @nobody",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "crypto-js": "^4.2.0"
+  }
 }

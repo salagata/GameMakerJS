@@ -36,8 +36,8 @@ class SVGcanvas {
         return sprite;
     };
 
-    addText(id,textFormat,width,height,classs= "",transformRotableType = "simple",data = "") {
-        let text = new Text(id,this,textFormat,width,height,classs,transformRotableType,data)
+    addText(id,textFormat,width,height,classs= "",data = "") {
+        let text = new Text(id,this,textFormat,width,height,classs,data)
     
         return text
     }

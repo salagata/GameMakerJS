@@ -23,10 +23,9 @@ class Sprite {
     #w;
     #h;
     #rotate;
-    constructor(type,SVG,sizeX,sizeY,classs = "",transformRotableType = "simple",isEllipse = false,data = {}) {
+    constructor(type,SVG,sizeX,sizeY,classs = "",isEllipse = false,data = {}) {
         this.#SVGcanvas = SVG;
-        this.transformRotableType = transformRotableType
-        this.#layer = 
+        this.#layer = da
         this.#SVGvector = d3.select("#"+this.#SVGcanvas.id).append("div")
             .attr("id",type)
             .attr("class",classs)
@@ -299,7 +298,8 @@ class Sprite {
         this.#SVGvector.transition().duration(ms)
         .style("bottom",(Math.floor(Math.random() * this.#h) - this.#h / 2)+"px")
         return this
-    }/**
+    }
+    /**
      * Glides the sprite in a random position
      * @param {number} ms The time, in mili-second
      */
@@ -309,7 +309,6 @@ class Sprite {
             .style("bottom",(Math.floor(Math.random() * this.#h) - this.#h / 2)+"px")
         return this
     }
-    
     /**
      * Glides the to another sprite
      * @param {Sprite} sprite The sprite 
@@ -580,9 +579,6 @@ class Sprite {
         this.#SVGvector
             .style("width",this.#width*sizex/100)
             .style("height",this.#height*sizey/100);
-            
-        this.#width = this.#width*sizex/100;
-        this.#height = this.#height*sizey/100;
         return this;
     }
     /**
