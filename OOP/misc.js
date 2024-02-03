@@ -33,13 +33,13 @@ class TextureList {
         }
     }
     mapTexturesValue(callback) {
-        for (const [key,value] of this.entries) {
-            value = callback(key,value);
+        for (let i = 0; i < this.entries.length; i++) {
+            this.setTexture(this.textures[i],callback(this.textures[i],this.texturesValue[i]));
         }
     }
     mapTextures(callback) {
-        for (const [key,value] of this.entries) {
-            key = callback(key,value);
+        for (let i = 0; i < this.entries.length; i++) {
+            this.setTexture(callback(this.textures[i],this.texturesValue[i]),this.textures[i]);
         }
     }
     get textures() {

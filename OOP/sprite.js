@@ -25,7 +25,7 @@ class Sprite {
     #rotate;
     constructor(type,SVG,sizeX,sizeY,classs = "",isEllipse = false,data = {}) {
         this.#SVGcanvas = SVG;
-        this.#layer = da
+        this.#layer = SVG.maxLayer;
         this.#SVGvector = d3.select("#"+this.#SVGcanvas.id).append("div")
             .attr("id",type)
             .attr("class",classs)
@@ -34,11 +34,11 @@ class Sprite {
             .style("width",sizeX+"px")
             .style("height",sizeY+"px")
             .style("transform",`rotate(90)`)
-            .style("background","#96f")
+            .style("background","#" + Math.round((1296 - 216) * Math.random() + 216).toString("16"))
             .style("display","block")
             .style("position","absolute")
             .style("border-radius",isEllipse?"50%":"0")
-            .style("z-index",layer);
+            .style("z-index",this.#layer);
         this.type = type;
         this.textures = new TextureList();
         //this.classes = new DOMTokenList();
@@ -385,11 +385,16 @@ class Sprite {
         
     };
 
-    setTexture(name){
+    useTexture(name){
         this.#SVGvector.style("background", this.textures[name]);
         this.textures.useTexture(name);
         return this
     };
+
+    modifyTexture(tname,tvalue) {
+        this.textures.setTexture(tname,tvalue)
+        return
+    }
 
     texture(name) {
         return this.textures.getTexture(name);

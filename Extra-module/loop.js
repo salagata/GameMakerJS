@@ -26,12 +26,14 @@ class ClassicForEverLoop {
             this.#updater(tempReg);
             this.#drawer(tempReg);
 
+            this.forever(this.#tick,Math.floor(this.#tick * (50/3)),Math.floor(this.#tick/60),Math.floor(this.#tick/3600))
+
             this.#tick++ 
 
             if(tempReg - this.#lastLog > 999) {
                 this.#lastLog = tempReg;
                 
-                callback(this.#ups,this.#fps,Math.floor(this.#tick/60)+1)
+                testUPSandFPS(this.#ups,this.#fps,Math.floor(this.#tick/60)+1)
 
                 this.#ups = 0;
                 this.#fps = 0;
@@ -47,11 +49,12 @@ class ClassicForEverLoop {
 
         this.#stoper = () => {
             onstop()
-            this.#looper = () => {};
+            this.forever = () => {};
         }
 
         this.#initer = () => {
-            this.#looper = callback;
+            this.forever = callback;
+            this.#looper()
         }
     }
     stop() {
@@ -106,21 +109,23 @@ class ForEverLoop {
         }
         this.#drawer = (tempReg) => {
             this.#fps++;
-            ondraw(this.#tick,Math.floor(this.#tick/60),Math.floor(this.#tick/3600))
+            this.ondraw(this.#tick,this.#tick * (50/3),Math.floor(this.#tick/60),Math.floor(this.#tick/3600))
         };
         this.#updater = (tempReg) => {
             this.#ups++;
-            onupdate(this.#tick,Math.floor(this.#tick/60),Math.floor(this.#tick/3600))
+            this.onupdate(this.#tick,this.#tick * (50/3),Math.floor(this.#tick/60),Math.floor(this.#tick/3600))
         };
         this.#looper();
 
         this.#stoper = () => {
             onstop()
-            this.#looper = () => {};
+            this.onupdate = () => {};
+            this.ondraw = () => {};
         }
 
         this.#initer = () => {
-            this.#looper = callback;
+            this.onupdate = onupdate;
+            this.ondraw = ondraw;
         }
     }
 
@@ -191,15 +196,12 @@ function waitUntil(test,callback) {
 }
 
 function waitAndStop(ms) {
-    let xhttp = new XMLHttpRequest()
+    let xhttp = new XMLHttpRequest();
 
-    xhttp.onload = () => {}
-    console.log("xd")
+    xhttp.onload = () => {};
 
-    xhttp.open("GET","wait.php?time=" + ms,false)
-    xhttp.send()
-
-    console.log("hello world")
+    xhttp.open("GET","wait.php?time=" + ms,false);
+    xhttp.send();
 }
 
 export {forEver,classicForEver,repeat,wait,waitAndRepeat,waitUntil,waitAndStop}

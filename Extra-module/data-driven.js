@@ -17,11 +17,11 @@ Object.freeze(VALID_FORMATS);
  * Send POST requests 
  * @param {string} url The file path of POST method
  * @param {function} callback Callback
- * @param {boolean} async The request is Asyncronous
+ * @param {boolean} async The request is Asyncronous?
  * @param {any} body The body of POST method
  * @param {object} header The header of POST method
  */
-function post(url,callback,async,body,header) {
+function post(url,callback,async = true,body,header) {
     let xhttp = new XMLHttpRequest();
     
     let data = [
@@ -44,9 +44,9 @@ function post(url,callback,async,body,header) {
  * Reads Normal text files text/plain GET
  * @param {string} url The file path
  * @param {function} callback Callback
- * @param {boolean} async The request is Asyncronous
+ * @param {boolean} async The request is Asyncronous?
  */
-function text(url,callback,async) {
+function text(url,callback,async = true) {
     let xhttp = new XMLHttpRequest();
 
     xhttp.onload = () => {
@@ -63,9 +63,9 @@ function text(url,callback,async) {
  * Xtensible markup language 
  * @param {string} url The file path
  * @param {function} callback Callback
- * @param {boolean} async The request is Asyncronous
+ * @param {boolean} async The request is Asyncronous?
  */
-function xml(url,callback) {
+function xml(url,callback,async = true) {
     let xhttp = new XMLHttpRequest();
 
     xhttp.onload = () => {
@@ -83,7 +83,7 @@ function xml(url,callback) {
  * To use comma, use double scape char (\\)
  * @param {string} url The file path
  * @param {function} callback Callback
- * @param {boolean} async The request is Asyncronous
+ * @param {boolean} async The request is Asyncronous?
  * @param {string} comma The comma
  */
 function csv(url,callback,async,comma = ",") {
@@ -91,17 +91,7 @@ function csv(url,callback,async,comma = ",") {
         const csvData = [];
         const lines = data.split("\n");
         for (let i = 0; i < lines.length; i++) {
-            lines[i].push("")
-            lines[i] = lines[i].split(comma).reduce((a,x,i) => {
-                return a.concat([x == undefined ? undefined : x.includes("\\") ? x.slice(0,-1) + "," + (function(){
-                let a = lines[i][i+1];
-                lines[i][i+1] = undefined;
-                    return a
-                })() : x])
-            },[])
-            lines[i].pop();
-            lines[i].filter(x => x != undefined)
-            csvData[i] = lines[i]
+            csvData[i] = lines[i].split(comma)
         }
         return csvData;
       };
@@ -122,9 +112,10 @@ function csv(url,callback,async,comma = ",") {
  * To use comma, use double scape char (\\)
  * @param {string} url The file path
  * @param {function} callback Callback
+ * @param {boolean} async The request is Asyncronous?
  * @param {string} comma The comma
  */
-function csvToMap(url,callback,comma = ",") {
+function csvToMap(url,callback,async = true,comma = ",") {
     function parse(data){
         const csvData = [];
         const lines = data.split("\n");
@@ -148,14 +139,12 @@ function csvToMap(url,callback,comma = ",") {
  * Same as query strings key=value
  * @param {string} url The file path
  * @param {function} callback Callback
- * @param {boolean} async The request is Asyncronous
+ * @param {boolean} async The request is Asyncronous?
  * Data-driven
  */
-function urlencoded(url,callback,async) {
+function urlencoded(url,callback,async = true) {
     function parse(data) {
         let json = {};
-        let f1 = [];
-        let f2 = [];
         let query = new URL("http://gamemaker.com/gm?"+data.replaceAll("\n","")).searchParams // a=b&b=c&b=d
         for(let i of query.keys()) {
             json[i] = query.getAll(i).length == 1 ? query.get(i) : query.getAll(i);
